@@ -3,83 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workflows – Founder Library</title>
+  <title>Workflows · Founder Library</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f2;
-      color: #171717;
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+    :root{
+      --slate-dark:#191919;
+      --slate-med:#262625;
+      --slate-light:#404036;
+      --cloud-dark:#666663;
+      --cloud-med:#919180;
+      --cloud-light:#BFBFBA;
+      --ivory-dark:#E8E8E3;
+      --ivory-med:#F0F0EB;
+      --ivory-light:#FAFAF7;
+      --book-cloth:#CC785C;
+      --kraft:#D4A27F;
+      --black:#070705;
+      --white:#FAFFF7;
     }
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 64px 24px;
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'DM Sans',Arial,sans-serif;
+      background:var(--ivory-dark);
+      color:var(--black);
+      padding:40px 20px 80px;
     }
-    .eyebrow {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #b85c4f;
-      margin-bottom: 16px;
-      font-weight: 700;
+    .shell{
+      width:min(1080px,100%);
+      margin:0 auto;
+      background:var(--ivory-light);
+      border:1px solid rgba(0,0,0,.05);
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.04);
     }
-    h1 {
-      font-size: 48px;
-      margin: 0 0 18px;
+
+    .hero{
+      position:relative;
+      background:var(--slate-dark);
+      color:var(--white);
+      padding:54px 64px 60px;
+      overflow:hidden;
     }
-    .sub {
-      font-size: 18px;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 40px;
-      max-width: 760px;
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 78% 12%, rgba(204,120,92,.16), transparent 28%),
+        radial-gradient(circle at 8% 88%, rgba(212,162,127,.10), transparent 28%);
+      pointer-events:none;
     }
-    .list {
-      display: grid;
-      gap: 16px;
+    .hero-inner{position:relative;z-index:1}
+    .crumb{
+      font-family:'DM Mono',monospace;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--cloud-med);
+      margin-bottom:18px;
     }
-    .card {
-      display: block;
-      background: white;
-      border: 1px solid #e7e7df;
-      border-radius: 14px;
-      padding: 24px;
-      text-decoration: none;
-      color: inherit;
+    .crumb a{
+      color:var(--cloud-med);
+      text-decoration:none;
     }
-    .card:hover {
-      border-color: #b85c4f;
+    .crumb a:hover{color:var(--white)}
+    h1{
+      font-size:62px;
+      line-height:.95;
+      letter-spacing:-.04em;
+      max-width:720px;
+      margin-bottom:18px;
+      font-weight:800;
     }
-    .title {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 8px;
+    .sub{
+      max-width:720px;
+      font-size:19px;
+      line-height:1.65;
+      color:var(--cloud-light);
     }
-    .desc {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.6;
+
+    .content{
+      padding:56px 64px 64px;
+    }
+    .section-kicker{
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--book-cloth);
+      margin-bottom:16px;
+    }
+    .section-title{
+      font-size:38px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+      margin-bottom:14px;
+      font-weight:800;
+    }
+    .section-copy{
+      font-size:18px;
+      line-height:1.65;
+      color:var(--cloud-dark);
+      max-width:760px;
+      margin-bottom:34px;
+    }
+
+    .list{
+      display:grid;
+      gap:16px;
+    }
+    .asset{
+      display:block;
+      text-decoration:none;
+      color:inherit;
+      background:var(--ivory-med);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:16px;
+      padding:26px 26px 24px;
+      transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .asset:hover{
+      transform:translateY(-2px);
+      border-color:rgba(204,120,92,.45);
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+    }
+    .asset-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:14px;
+    }
+    .asset-kicker{
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--book-cloth);
+      margin-bottom:10px;
+    }
+    .asset-title{
+      font-size:34px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+      font-weight:800;
+      color:var(--black);
+    }
+    .pill{
+      flex-shrink:0;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(204,120,92,.12);
+      color:var(--book-cloth);
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-top:2px;
+    }
+    .asset-desc{
+      font-size:17px;
+      line-height:1.65;
+      color:var(--cloud-dark);
+      max-width:780px;
+    }
+    .asset-meta{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(0,0,0,.06);
+      color:var(--cloud-dark);
+      font-size:13px;
+    }
+    .asset-meta strong{color:var(--black)}
+
+    .footer{
+      padding:22px 64px 24px;
+      border-top:1px solid rgba(0,0,0,.06);
+      color:var(--cloud-dark);
+      font-size:13px;
+    }
+
+    @media (max-width:900px){
+      h1{font-size:50px}
+      .content,.hero{padding:40px 28px}
+      .asset-top{flex-direction:column}
+      .footer{padding:20px 28px 24px}
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="eyebrow">Founder Library</div>
-    <h1>Workflows</h1>
-    <div class="sub">
-      Practical execution systems and repeatable operating workflows for founders.
-    </div>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="crumb"><a href="../">Founder Library</a> / Workflows</div>
+        <h1>Workflow assets for repeated founder work.</h1>
+        <p class="sub">
+          This category contains practical execution systems and workflow packs designed to remove
+          repeated founder involvement from inbox, meetings, proposals, outbound, research, content and weekly review.
+        </p>
+      </div>
+    </section>
 
-    <div class="list">
-      <a class="card" href="./7-claude-workflows-for-founders/">
-        <div class="title">7 Claude Workflows for Founders</div>
-        <div class="desc">
-          A practical pack for removing repeated founder work across inbox, meetings,
-          proposals, outbound, research, content and CEO review.
-        </div>
-      </a>
+    <section class="content">
+      <div class="section-kicker">Live assets</div>
+      <h2 class="section-title">Start with the workflow pack below.</h2>
+      <p class="section-copy">
+        New workflow assets will be added here over time. For now, this category contains the current founder workflow pack.
+      </p>
+
+      <div class="list">
+        <a class="asset" href="./7-claude-workflows-for-founders/">
+          <div class="asset-top">
+            <div>
+              <div class="asset-kicker">Workflow Pack</div>
+              <div class="asset-title">7 Claude Workflows for Founders</div>
+            </div>
+            <div class="pill">Live</div>
+          </div>
+
+          <div class="asset-desc">
+            A practical pack for removing repeated founder work across inbox triage, meeting notes,
+            proposal drafting, outbound personalization, research briefs, content extraction and weekly CEO review.
+          </div>
+
+          <div class="asset-meta">
+            <div><strong>Format:</strong> HTML pack</div>
+            <div><strong>Use case:</strong> execution systems</div>
+            <div><strong>Status:</strong> available now</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="footer">
+      Founder Library · workflows category
     </div>
-  </div>
+  </main>
 </body>
 </html>
