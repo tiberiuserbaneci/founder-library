@@ -5,107 +5,294 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Founder Library</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f2;
-      color: #171717;
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+    :root{
+      --slate-dark:#191919;
+      --slate-med:#262625;
+      --slate-light:#404036;
+      --cloud-dark:#666663;
+      --cloud-med:#919180;
+      --cloud-light:#BFBFBA;
+      --ivory-dark:#E8E8E3;
+      --ivory-med:#F0F0EB;
+      --ivory-light:#FAFAF7;
+      --book-cloth:#CC785C;
+      --kraft:#D4A27F;
+      --black:#070705;
+      --white:#FAFFF7;
     }
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 64px 24px;
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'DM Sans',Arial,sans-serif;
+      background:var(--ivory-dark);
+      color:var(--black);
+      padding:40px 20px 80px;
     }
-    .eyebrow {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #b85c4f;
-      margin-bottom: 16px;
-      font-weight: 700;
+    .shell{
+      width:min(1080px,100%);
+      margin:0 auto;
+      background:var(--ivory-light);
+      border:1px solid rgba(0,0,0,.05);
+      overflow:hidden;
+      box-shadow:0 10px 40px rgba(0,0,0,.04);
     }
-    h1 {
-      font-size: 56px;
-      line-height: 1;
-      margin: 0 0 20px;
+
+    .hero{
+      position:relative;
+      background:var(--slate-dark);
+      color:var(--white);
+      padding:56px 64px 64px;
+      overflow:hidden;
     }
-    .sub {
-      font-size: 20px;
-      line-height: 1.6;
-      max-width: 760px;
-      color: #555;
-      margin-bottom: 48px;
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(204,120,92,.16), transparent 28%),
+        radial-gradient(circle at 10% 85%, rgba(212,162,127,.10), transparent 28%);
+      pointer-events:none;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+    .hero-inner{position:relative;z-index:1}
+    .eyebrow{
+      font-family:'DM Mono',monospace;
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--book-cloth);
+      margin-bottom:18px;
     }
-    .card {
-      background: white;
-      border: 1px solid #e7e7df;
-      border-radius: 14px;
-      padding: 24px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
+    h1{
+      font-size:68px;
+      line-height:.95;
+      letter-spacing:-.04em;
+      max-width:760px;
+      margin-bottom:22px;
+      font-weight:800;
     }
-    .card:hover {
-      border-color: #b85c4f;
+    .sub{
+      max-width:720px;
+      font-size:20px;
+      line-height:1.6;
+      color:var(--cloud-light);
     }
-    .label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #b85c4f;
-      font-weight: 700;
-      margin-bottom: 10px;
+
+    .meta{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      border-top:1px solid var(--slate-light);
+      margin-top:44px;
+      padding-top:28px;
     }
-    .title {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 10px;
+    .meta-item{padding-right:24px}
+    .meta-item + .meta-item{
+      border-left:1px solid var(--slate-light);
+      padding-left:24px;
     }
-    .desc {
-      font-size: 16px;
-      line-height: 1.6;
-      color: #666;
+    .meta-num{
+      font-size:34px;
+      font-weight:800;
+      line-height:1;
+      color:var(--white);
+    }
+    .meta-num span{color:var(--book-cloth)}
+    .meta-label{
+      margin-top:6px;
+      color:var(--cloud-dark);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .content{
+      padding:56px 64px 64px;
+    }
+    .section-kicker{
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--book-cloth);
+      margin-bottom:16px;
+    }
+    .section-title{
+      font-size:38px;
+      line-height:1.02;
+      letter-spacing:-.03em;
+      margin-bottom:14px;
+      font-weight:800;
+    }
+    .section-copy{
+      font-size:18px;
+      line-height:1.65;
+      color:var(--cloud-dark);
+      max-width:760px;
+      margin-bottom:36px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .card{
+      display:block;
+      background:var(--ivory-med);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:14px;
+      padding:24px 24px 22px;
+      color:inherit;
+      text-decoration:none;
+      transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(204,120,92,.45);
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+    }
+    .card.disabled{
+      cursor:default;
+      opacity:.72;
+      pointer-events:none;
+      background:linear-gradient(180deg,var(--ivory-med),#ecece7);
+    }
+    .card-label{
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--book-cloth);
+      margin-bottom:14px;
+    }
+    .card-title{
+      font-size:30px;
+      line-height:1.08;
+      letter-spacing:-.03em;
+      font-weight:800;
+      margin-bottom:10px;
+      color:var(--black);
+    }
+    .card-desc{
+      font-size:16px;
+      line-height:1.6;
+      color:var(--cloud-dark);
+    }
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-family:'DM Mono',monospace;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      background:rgba(204,120,92,.12);
+      color:var(--book-cloth);
+    }
+    .status.muted{
+      background:rgba(102,102,99,.10);
+      color:var(--cloud-dark);
+    }
+
+    .footer{
+      padding:22px 64px 24px;
+      border-top:1px solid rgba(0,0,0,.06);
+      color:var(--cloud-dark);
+      font-size:13px;
+    }
+
+    @media (max-width:900px){
+      h1{font-size:52px}
+      .content,.hero{padding:40px 28px}
+      .meta{grid-template-columns:1fr}
+      .meta-item,.meta-item + .meta-item{padding:0;border:0}
+      .meta-item + .meta-item{margin-top:18px}
+      .grid{grid-template-columns:1fr}
+      .footer{padding:20px 28px 24px}
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="eyebrow">Founder Library</div>
-    <h1>Practical systems for founders.</h1>
-    <div class="sub">
-      Workflows, playbooks, cheatsheets, infographics and operating assets built for execution-heavy founders.
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Founder Library</div>
+        <h1>Practical systems for founders.</h1>
+        <p class="sub">
+          Workflows, cheatsheets, playbooks and infographics built for founders who want
+          execution clarity, not generic advice.
+        </p>
+
+        <div class="meta">
+          <div class="meta-item">
+            <div class="meta-num">4</div>
+            <div class="meta-label">resource categories for workflows, cheatsheets, playbooks and infographics</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-num">1<span>+</span></div>
+            <div class="meta-label">live workflow pack available now</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-num">0</div>
+            <div class="meta-label">dead buttons for categories without assets</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="section-kicker">Browse by category</div>
+      <h2 class="section-title">Start from the asset type you need.</h2>
+      <p class="section-copy">
+        This library is organized as a simple public hub. Live categories open normally.
+        Categories without documents stay visible, but inactive, so visitors do not hit a 404.
+      </p>
+
+      <div class="grid">
+        <a class="card" href="./workflows/">
+          <div class="card-label">Category</div>
+          <div class="card-title">Workflows</div>
+          <div class="card-desc">
+            Repeatable execution systems, founder operating packs and workflow assets.
+          </div>
+          <div class="status">Live</div>
+        </a>
+
+        <div class="card disabled" aria-disabled="true">
+          <div class="card-label">Category</div>
+          <div class="card-title">Cheatsheets</div>
+          <div class="card-desc">
+            Fast-reference assets, compact notes and tactical operator summaries.
+          </div>
+          <div class="status muted">Coming soon</div>
+        </div>
+
+        <div class="card disabled" aria-disabled="true">
+          <div class="card-label">Category</div>
+          <div class="card-title">Playbooks</div>
+          <div class="card-desc">
+            Structured guides for recurring founder problems and execution models.
+          </div>
+          <div class="status muted">Coming soon</div>
+        </div>
+
+        <div class="card disabled" aria-disabled="true">
+          <div class="card-label">Category</div>
+          <div class="card-title">Infographics</div>
+          <div class="card-desc">
+            Visual frameworks, operator maps and strategic breakdown assets.
+          </div>
+          <div class="status muted">Coming soon</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Founder Library · public resource hub for founders
     </div>
-
-    <div class="grid">
-      <a class="card" href="./workflows/">
-        <div class="label">Category</div>
-        <div class="title">Workflows</div>
-        <div class="desc">Execution systems, operating flows, and reusable founder workflows.</div>
-      </a>
-
-      <a class="card" href="./cheatsheets/">
-        <div class="label">Category</div>
-        <div class="title">Cheatsheets</div>
-        <div class="desc">Fast references, decision aids, and compact operating notes.</div>
-      </a>
-
-      <a class="card" href="./playbooks/">
-        <div class="label">Category</div>
-        <div class="title">Playbooks</div>
-        <div class="desc">Structured guides for recurring founder problems and execution patterns.</div>
-      </a>
-
-      <a class="card" href="./infographics/">
-        <div class="label">Category</div>
-        <div class="title">Infographics</div>
-        <div class="desc">Visual breakdowns, frameworks, and strategic operating models.</div>
-      </a>
-    </div>
-  </div>
+  </main>
 </body>
 </html>
