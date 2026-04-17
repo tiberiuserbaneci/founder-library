@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Claude Code Templates - Full Prompt Library</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --orange: #CC785C;
+  --dark: #191919;
+  --slate: #262625;
+  --ivory: #F0F0EB;
+  --cream: #FAFAF7;
+  --text: #404036;
+  --muted: #919180;
+  --border: #E8DBBC;
+  --code-bg: #191919;
+}
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ---- PAGE WRAPPER ---- */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* ---- COVER ---- */
+.cover {
+  background: var(--dark);
+  padding: 80px 40px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.cover-logo {
+  font-size: 13px; font-weight: 800; letter-spacing: 0.2em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 48px;
+}
+.cover-eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--muted); text-transform: uppercase; margin-bottom: 20px;
+}
+.cover-title {
+  font-size: 72px; font-weight: 900; color: #FAFAF7;
+  line-height: 1; letter-spacing: -2px; margin-bottom: 8px;
+}
+.cover-title-accent { color: var(--orange); }
+.cover-subtitle {
+  font-size: 20px; font-weight: 400; color: var(--muted);
+  margin-top: 28px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.6;
+}
+.cover-divider {
+  width: 48px; height: 3px; background: var(--orange);
+  margin: 40px auto; border-radius: 2px;
+}
+.cover-meta {
+  font-size: 13px; color: #666663; letter-spacing: 0.05em;
+}
+
+/* ---- TOC ---- */
+.toc {
+  background: var(--ivory);
+  padding: 48px 56px;
+  margin-bottom: 0;
+}
+.toc-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  color: var(--muted); text-transform: uppercase; margin-bottom: 24px;
+}
+.toc-list { list-style: none; }
+.toc-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-bottom: 1px solid var(--border);
+  font-size: 16px; font-weight: 600; color: var(--dark);
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-num {
+  font-size: 11px; font-weight: 700; color: var(--orange);
+  letter-spacing: 0.1em; margin-right: 16px; min-width: 28px;
+}
+.toc-name { flex: 1; }
+.toc-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--muted); text-transform: uppercase;
+  background: var(--border); padding: 3px 8px; border-radius: 4px;
+}
+
+/* ---- SECTION BREAK ---- */
+.section-break {
+  background: var(--dark);
+  padding: 56px 40px;
+  text-align: center;
+}
+.section-break-num {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 12px;
+}
+.section-break-title {
+  font-size: 56px; font-weight: 900; color: #FAFAF7;
+  line-height: 1; letter-spacing: -2px;
+}
+.section-break-accent { color: var(--orange); }
+.section-break-sub {
+  font-size: 16px; color: var(--muted); margin-top: 16px;
+}
+
+/* ---- CONTENT BLOCK ---- */
+.content-block {
+  background: var(--cream);
+  padding: 56px 40px;
+}
+.content-block + .content-block { padding-top: 0; }
+
+.block-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  color: var(--muted); text-transform: uppercase; margin-bottom: 12px;
+}
+.block-title {
+  font-size: 32px; font-weight: 900; color: var(--dark);
+  line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px;
+}
+.block-body {
+  font-size: 16px; color: var(--text); line-height: 1.7;
+  max-width: 680px; margin-bottom: 32px;
+}
+.block-body p + p { margin-top: 14px; }
+
+/* ---- HIGHLIGHT BOX ---- */
+.highlight-box {
+  background: var(--ivory);
+  border-left: 4px solid var(--orange);
+  padding: 20px 24px;
+  border-radius: 0 10px 10px 0;
+  margin: 24px 0;
+  font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.5;
+}
+
+/* ---- WORKFLOW STEPS ---- */
+.workflow {
+  margin: 28px 0;
+}
+.workflow-title {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 16px;
+}
+.step {
+  display: flex; gap: 16px; margin-bottom: 0;
+  position: relative;
+}
+.step + .step .step-body { border-top: 1px solid var(--border); }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--dark); color: #FAFAF7;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 14px;
+}
+.step-body { flex: 1; padding: 14px 0; }
+.step-label {
+  font-size: 14px; font-weight: 800; color: var(--dark);
+  letter-spacing: -0.01em; margin-bottom: 4px;
+}
+.step-desc { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* ---- CODE BLOCK ---- */
+.code-wrap { margin: 28px 0; }
+.code-header {
+  background: #262625;
+  padding: 10px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: 12px 12px 0 0;
+}
+.code-lang {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase;
+}
+.code-label {
+  font-size: 10px; font-weight: 600; color: #666663; letter-spacing: 0.06em;
+}
+.code-body {
+  background: var(--code-bg);
+  padding: 24px 22px;
+  border-radius: 0 0 12px 12px;
+  overflow-x: auto;
+}
+.code-body pre {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 13px; color: #BFBFBA; line-height: 1.75;
+  white-space: pre-wrap; word-break: break-word;
+}
+.code-body .hl-orange { color: #CC785C; font-weight: 600; }
+.code-body .hl-blue { color: #84B4F2; }
+.code-body .hl-green { color: #7EC8A0; }
+.code-body .hl-grey { color: #666663; }
+
+/* ---- PROMPT CARD ---- */
+.prompt-card {
+  background: var(--code-bg);
+  border-radius: 14px;
+  padding: 24px 24px 20px;
+  margin: 24px 0;
+  position: relative;
+}
+.prompt-badge {
+  display: inline-block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--orange); text-transform: uppercase;
+  border: 1px solid #CC785C40; padding: 3px 10px; border-radius: 4px;
+  margin-bottom: 14px;
+}
+.prompt-text {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 13px; color: #BFBFBA; line-height: 1.8;
+  white-space: pre-wrap;
+}
+.prompt-text .ph { color: #CC785C; font-weight: 600; }
+.prompt-text .kw { color: #84B4F2; }
+.prompt-text .cm { color: #666663; font-style: italic; }
+
+/* ---- AGENT ROLES TABLE ---- */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0;
+}
+.role-card {
+  background: var(--ivory);
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 3px solid var(--border);
+}
+.role-card.accent { border-left-color: var(--orange); }
+.role-title {
+  font-size: 14px; font-weight: 800; color: var(--dark);
+  margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.role-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.role-tag {
+  display: inline-block; margin-top: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--orange); text-transform: uppercase;
+  background: #CC785C15; padding: 2px 8px; border-radius: 4px;
+}
+
+/* ---- TIPS BOX ---- */
+.tips-box {
+  background: var(--ivory);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.tips-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 16px;
+}
+.tip-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.tip-row:last-child { border-bottom: none; }
+.tip-bullet {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0; margin-top: 7px;
+}
+.tip-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+/* ---- DIVIDER ---- */
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 0 40px;
+}
+
+/* ---- FOOTER ---- */
+.doc-footer {
+  background: var(--dark);
+  padding: 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-left { font-size: 14px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; }
+.footer-right { font-size: 12px; color: #666663; }
+.footer-tagline { font-size: 12px; color: #404036; margin-top: 4px; }
+
+/* NO PRINT */
+@media print {
+  .no-print { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo">ULTRON</div>
+  <div class="cover-eyebrow">Full Prompt Library</div>
+  <div class="cover-title">5 Claude Code<br><span class="cover-title-accent">Templates</span></div>
+  <div class="cover-subtitle">Complete workflow prompts, agent configurations, and implementation guides for each template.</div>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">51ultron.com &nbsp;|&nbsp; Free resource &nbsp;|&nbsp; 2025</div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ul class="toc-list">
+    <li class="toc-item">
+      <span class="toc-num">01</span>
+      <span class="toc-name">Agent Teams</span>
+      <span class="toc-tag">Multi-agent</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">02</span>
+      <span class="toc-name">Specialized Agents</span>
+      <span class="toc-tag">Role-based</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">03</span>
+      <span class="toc-name">MCP Integrations</span>
+      <span class="toc-tag">Connected</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">04</span>
+      <span class="toc-name">Real-Time Monitoring</span>
+      <span class="toc-tag">Visibility</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">05</span>
+      <span class="toc-name">Automation Scheduling</span>
+      <span class="toc-tag">Autonomous</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- TEMPLATE 1: AGENT TEAMS -->
+<!-- ============================================================ -->
+
+<div class="section-break">
+  <div class="section-break-num">Template 01</div>
+  <div class="section-break-title">Agent <span class="section-break-accent">Teams</span></div>
+  <div class="section-break-sub">Coordinate multiple agents on one codebase</div>
+</div>
+
+<div class="content-block">
+  <div class="block-label">What it does</div>
+  <div class="block-title">Visual dashboards for multi-agent collaboration</div>
+  <div class="block-body">
+    <p>Agent Teams provide a coordination layer that lets multiple Claude Code instances work on the same project simultaneously. Each agent gets a defined scope, communicates through shared context files, and reports status to a central dashboard agent.</p>
+    <p>Complex work is divided efficiently. Development becomes faster, more organised, and easier to manage.</p>
+  </div>
+
+  <div class="highlight-box">
+    The key insight: agents don't need to talk to each other directly. They communicate through structured files your team can read too.
+  </div>
+
+  <div class="workflow">
+    <div class="workflow-title">How it runs</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-label">Define team structure</div>
+        <div class="step-desc">Create a TEAM.md file listing each agent, its scope, and which files it owns.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-label">Launch agents in sequence</div>
+        <div class="step-desc">Start Frontend Agent first (builds interfaces), then Backend Agent (implements APIs), then QA Agent (validates).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-label">Dashboard Agent aggregates</div>
+        <div class="step-desc">Reads each agent's STATUS.md and builds a unified progress view. Flags blockers automatically.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-label">You review and unblock</div>
+        <div class="step-desc">Only intervene when Dashboard flags a conflict or dependency issue. Otherwise let it run.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="roles-grid">
+    <div class="role-card accent">
+      <div class="role-title">Frontend Agent</div>
+      <div class="role-desc">Owns all UI components. Reads design spec, writes React/HTML, updates STATUS.md after each component.</div>
+      <div class="role-tag">UI only</div>
+    </div>
+    <div class="role-card">
+      <div class="role-title">Backend Agent</div>
+      <div class="role-desc">Owns API routes and DB schema. Never touches frontend files. Documents every endpoint in API.md.</div>
+      <div class="role-tag">Server only</div>
+    </div>
+    <div class="role-card">
+      <div class="role-title">QA Agent</div>
+      <div class="role-desc">Runs after Frontend and Backend complete. Writes tests, documents failures, requests fixes via BLOCKERS.md.</div>
+      <div class="role-tag">Tests only</div>
+    </div>
+    <div class="role-card accent">
+      <div class="role-title">Dashboard Agent</div>
+      <div class="role-desc">Reads all STATUS.md files. Aggregates into DASHBOARD.md. Pings you only when something is blocked.</div>
+      <div class="role-tag">Coordinator</div>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Frontend Agent</span>
+      <span class="code-label">Copy exactly</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are the Frontend Agent</span> in a multi-agent Claude Code team.
+
+<span class="hl-blue">YOUR SCOPE:</span>
+- Read: /design-spec.md, /TEAM.md, /API.md (for contract)
+- Write: /src/components/**, /src/pages/**, /src/styles/**
+- Never modify: /api/**, /server/**, /db/**
+
+<span class="hl-blue">YOUR PROCESS:</span>
+1. Read /design-spec.md fully before writing any code
+2. Check /API.md for available endpoints (do not invent new ones)
+3. Build each component. After each one, append to /STATUS.md:
+   [FRONTEND] {component_name} DONE | {timestamp}
+4. If you need a new API endpoint, write the request to /BLOCKERS.md
+   and continue with the next component that doesn't depend on it
+5. When all components are done, write FRONTEND: COMPLETE to /STATUS.md
+
+<span class="hl-orange">HARD RULE:</span> Never touch files outside your scope.
+If a file is not in /src/, you do not modify it.</pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Dashboard Agent</span>
+      <span class="code-label">Run last</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are the Dashboard Agent.</span>
+
+Read these files in order:
+- /STATUS.md (all agents write here)
+- /BLOCKERS.md (unresolved issues)
+- /API.md (contract status)
+
+<span class="hl-blue">Build /DASHBOARD.md with this structure:</span>
+
+# Team Status - {timestamp}
+
+## Completed
+{list each DONE item from STATUS.md}
+
+## In Progress
+{list each agent that has not written COMPLETE}
+
+## Blockers
+{list each item from BLOCKERS.md}
+
+## Overall Status
+{READY FOR REVIEW / BLOCKED / IN PROGRESS}
+
+<span class="hl-orange">If any blocker exists:</span> write a one-line summary
+of what a human needs to decide to unblock it.</pre>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title">Pro tips</div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Give each agent a separate Claude Code session. They work independently and only share files.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Start with a TEAM.md that lists every agent, its scope, and file ownership boundaries. This prevents conflicts.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Run agents sequentially if this is your first time. Parallel runs are faster but harder to debug.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">The Dashboard Agent should run last, after all others complete or pause. It reads, it never writes code.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================================ -->
+<!-- TEMPLATE 2: SPECIALIZED AGENTS -->
+<!-- ============================================================ -->
+
+<div class="section-break">
+  <div class="section-break-num">Template 02</div>
+  <div class="section-break-title">Specialized <span class="section-break-accent">Agents</span></div>
+  <div class="section-break-sub">Professional roles, not generic helpers</div>
+</div>
+
+<div class="content-block">
+  <div class="block-label">What it does</div>
+  <div class="block-title">Agents that act like domain experts, not generalists</div>
+  <div class="block-body">
+    <p>Specialized Agents are configured with deep domain knowledge and strict behavioral constraints. A Creative Design Agent thinks like a senior designer. A Backend Agent thinks like a systems engineer. Together they function like a complete digital team.</p>
+    <p>The difference from a generic agent: specialization means better outputs, fewer errors, and zero scope creep.</p>
+  </div>
+
+  <div class="highlight-box">
+    Each agent works within its area of expertise to produce better results. Together they function like a complete digital team.
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Creative Design Agent</span>
+      <span class="code-label">Use for all design tasks</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are a Senior Creative Director</span> working on this project.
+
+<span class="hl-blue">YOUR EXPERTISE:</span>
+- Visual hierarchy and layout systems
+- Typography pairing and color theory
+- Component design for web and mobile
+- Design-to-development handoff
+
+<span class="hl-blue">YOUR DELIVERABLE FORMAT:</span>
+Every design decision must be documented with:
+1. The decision made
+2. Why (visual reasoning, not preference)
+3. The exact values (hex codes, px sizes, font weights)
+4. How developers should implement it
+
+<span class="hl-orange">YOUR CONSTRAINT:</span>
+You do not write code. You produce design specs that
+developers implement. If asked to code, produce a spec instead.
+
+<span class="hl-blue">CURRENT BRIEF:</span>
+{paste your design brief here}</pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Backend Engineering Agent</span>
+      <span class="code-label">Systems-first thinking</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are a Senior Backend Engineer.</span>
+
+<span class="hl-blue">YOUR PRINCIPLES:</span>
+- Correctness before performance
+- Explicit over implicit
+- Every function does one thing
+- No side effects without documentation
+
+<span class="hl-blue">BEFORE WRITING ANY CODE:</span>
+1. State the data model
+2. State the API contract (inputs, outputs, errors)
+3. State any external dependencies
+4. Get confirmation before implementing
+
+<span class="hl-blue">WHEN WRITING CODE:</span>
+- Every function has a docstring with inputs/outputs/side effects
+- Error handling is explicit, never swallowed
+- Write the test before the implementation
+
+<span class="hl-orange">SCOPE:</span> /api/**, /server/**, /db/**
+Do not modify frontend files under any circumstance.
+
+Current task: {describe what needs to be built}</pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Marketing Specialist Agent</span>
+      <span class="code-label">Launch copy for every feature</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are a B2B Marketing Specialist</span> focused on founder-led businesses.
+
+<span class="hl-blue">YOUR ICP:</span> Solo founders and small teams (1-10 people),
+US/UK, actively using AI to replace manual work.
+
+<span class="hl-blue">FOR EACH FEATURE YOU RECEIVE:</span>
+Produce exactly this structure:
+
+TITLE: {one clear benefit, not a feature name}
+TAGLINE: {under 10 words, specific outcome}
+BULLETS:
+  - {concrete result, time saved, or cost avoided}
+  - {before/after contrast}
+  - {social proof angle or credibility signal}
+CTA: {action verb + specific next step}
+
+<span class="hl-orange">TONE RULES:</span>
+- No jargon. No "leverage", "seamless", "robust"
+- Use numbers when possible (3 hours, 47%, $200/month)
+- Write like you're talking to a busy founder at 8am
+
+Max 120 words per feature. No exceptions.
+
+Feature to write for: {paste feature description}</pre>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title">Configuration tips</div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Give each agent its own CLAUDE.md file in its scope directory. This becomes its persistent memory.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Include "constraint" sections explicitly. Tell agents what they cannot do, not just what they should do.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Force a "state before act" pattern. Make every agent describe what it will do before doing it.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================================ -->
+<!-- TEMPLATE 3: MCP INTEGRATIONS -->
+<!-- ============================================================ -->
+
+<div class="section-break">
+  <div class="section-break-num">Template 03</div>
+  <div class="section-break-title">MCP <span class="section-break-accent">Integrations</span></div>
+  <div class="section-break-sub">Connect Claude directly to your tools</div>
+</div>
+
+<div class="content-block">
+  <div class="block-label">What it does</div>
+  <div class="block-title">Claude connected to every tool in your stack</div>
+  <div class="block-body">
+    <p>MCP (Model Context Protocol) lets Claude Code connect directly to external services - databases, file systems, GitHub, Notion, Linear, Slack, and more. Agents can retrieve information, update systems, and trigger actions automatically.</p>
+    <p>This creates a fully connected environment where Claude is not just writing code but running your business logic.</p>
+  </div>
+
+  <div class="highlight-box">
+    The fastest MCP setup: start with filesystem + github. That alone covers 80% of development workflows.
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">claude_desktop_config.json</span>
+      <span class="code-label">Full stack config</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-grey">{</span>
+  <span class="hl-blue">"mcpServers"</span><span class="hl-grey">: {</span>
+    <span class="hl-orange">"filesystem"</span><span class="hl-grey">: {</span>
+      <span class="hl-blue">"command"</span><span class="hl-grey">: "npx",</span>
+      <span class="hl-blue">"args"</span><span class="hl-grey">: ["-y", "@modelcontextprotocol/server-filesystem",</span>
+               <span class="hl-green">"/your/project/path"</span><span class="hl-grey">]</span>
+    <span class="hl-grey">},</span>
+    <span class="hl-orange">"github"</span><span class="hl-grey">: {</span>
+      <span class="hl-blue">"command"</span><span class="hl-grey">: "npx",</span>
+      <span class="hl-blue">"args"</span><span class="hl-grey">: ["-y", "@modelcontextprotocol/server-github"],</span>
+      <span class="hl-blue">"env"</span><span class="hl-grey">: { </span><span class="hl-orange">"GITHUB_PERSONAL_ACCESS_TOKEN"</span><span class="hl-grey">: "your_token" }</span>
+    <span class="hl-grey">},</span>
+    <span class="hl-orange">"notion"</span><span class="hl-grey">: {</span>
+      <span class="hl-blue">"command"</span><span class="hl-grey">: "npx",</span>
+      <span class="hl-blue">"args"</span><span class="hl-grey">: ["-y", "@notionhq/notion-mcp-server"],</span>
+      <span class="hl-blue">"env"</span><span class="hl-grey">: { </span><span class="hl-orange">"NOTION_API_KEY"</span><span class="hl-grey">: "your_key" }</span>
+    <span class="hl-grey">},</span>
+    <span class="hl-orange">"slack"</span><span class="hl-grey">: {</span>
+      <span class="hl-blue">"command"</span><span class="hl-grey">: "npx",</span>
+      <span class="hl-blue">"args"</span><span class="hl-grey">: ["-y", "@modelcontextprotocol/server-slack"],</span>
+      <span class="hl-blue">"env"</span><span class="hl-grey">: { </span><span class="hl-orange">"SLACK_BOT_TOKEN"</span><span class="hl-grey">: "xoxb-your-token" }</span>
+    <span class="hl-grey">}</span>
+  <span class="hl-grey">}</span>
+<span class="hl-grey">}</span></pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Multi-tool agent</span>
+      <span class="code-label">Full workflow orchestration</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">Available tools:</span> filesystem, github, notion, linear, slack
+
+When the user assigns a task, follow this protocol:
+
+<span class="hl-blue">STEP 1 - RESEARCH</span>
+- Check linear for existing tickets on this topic
+- Search notion for relevant documentation
+- Read related files via filesystem
+
+<span class="hl-blue">STEP 2 - PLAN</span>
+Output your plan before acting:
+  Task: {what you will do}
+  Files affected: {list}
+  Tools used: {list in order}
+  Expected output: {what done looks like}
+
+<span class="hl-blue">STEP 3 - EXECUTE</span>
+Execute one tool at a time.
+After each tool call, log: [TOOL] [ACTION] [RESULT]
+
+<span class="hl-blue">STEP 4 - REPORT</span>
+When complete:
+- Update the linear ticket to Done
+- Post summary to <span class="hl-orange">#dev-updates</span> in Slack
+- Commit changes with descriptive message via github
+
+<span class="hl-orange">NEVER</span> execute a destructive action (delete, overwrite)
+without stating it in the plan first.</pre>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title">MCP setup checklist</div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Install Node.js 18+ before any MCP server. Most servers are npm packages.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Test each server individually before combining them. Use "list available tools" to confirm connection.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Restrict filesystem paths to only what the agent needs. Never give access to your entire home directory.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Add a "plan before act" instruction to every MCP agent. Connected agents can cause real damage if unconstrained.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================================ -->
+<!-- TEMPLATE 4: REAL-TIME MONITORING -->
+<!-- ============================================================ -->
+
+<div class="section-break">
+  <div class="section-break-num">Template 04</div>
+  <div class="section-break-title">Real-Time <span class="section-break-accent">Monitoring</span></div>
+  <div class="section-break-sub">See exactly what every agent is doing</div>
+</div>
+
+<div class="content-block">
+  <div class="block-label">What it does</div>
+  <div class="block-title">Live dashboards for every agent session</div>
+  <div class="block-body">
+    <p>Real-Time Monitoring gives you visibility into what AI agents are doing as they do it. Task progress, system activity, and performance metrics stream live. This transparency helps you understand exactly how work is progressing and where to intervene.</p>
+    <p>It allows quick adjustments and better control over AI-driven processes.</p>
+  </div>
+
+  <div class="highlight-box">
+    The monitoring prompt is not optional. Without structured output, you are flying blind. Add it to every long-running agent.
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Monitor mode</span>
+      <span class="code-label">Add to any agent</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">MONITOR MODE: ON</span>
+
+After every action (file write, tool call, decision), output
+a one-line status entry in this exact format:
+
+<span class="hl-blue">[AGENT_NAME] [ACTION_TYPE] [TARGET] [STATUS] [HH:MM]</span>
+
+Examples:
+[frontend] WRITE src/Button.tsx DONE 09:14
+[backend] READ api/users.ts DONE 09:15
+[qa] TEST auth.spec.ts <span class="hl-orange">FAIL</span> 09:18 -- see error below
+[dashboard] READ STATUS.md DONE 09:20
+
+<span class="hl-blue">STATUS values:</span>
+DONE - completed successfully
+IN_PROGRESS - started, not complete
+<span class="hl-orange">FAIL</span> - error occurred (always explain on next line)
+SKIP - skipped with reason
+BLOCKED - waiting on another agent or human
+
+At the end of each session write a SUMMARY block:
+---SUMMARY---
+Total actions: {n}
+Completed: {n}
+Failed: {n}
+Blocked on: {list or "nothing"}</pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Performance metrics agent</span>
+      <span class="code-label">For longer pipelines</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are the Metrics Agent.</span>
+
+Every 10 agent actions, write to /METRICS.md:
+
+<span class="hl-blue">## Checkpoint {n} - {timestamp}</span>
+- Actions completed: {count}
+- Files modified: {list}
+- Errors encountered: {count} -- {brief descriptions}
+- Estimated completion: {% of total tasks done}
+- Velocity: {actions per minute}
+- Recommendation: {CONTINUE / PAUSE FOR REVIEW / STOP}
+
+<span class="hl-orange">Trigger a PAUSE FOR REVIEW if:</span>
+- Error rate exceeds 20%
+- Same file modified more than 3 times
+- Any destructive operation attempted
+- Task scope has changed from original brief</pre>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title">Monitoring patterns</div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Use a single STATUS.md file per project. All agents append to it. You read one file to see everything.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Set a "pause threshold" before starting: tell the agent to stop and ask you if it hits X errors or modifies Y files unexpectedly.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">For critical runs, open STATUS.md in a separate editor window. You see updates in real time as the agent writes.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ============================================================ -->
+<!-- TEMPLATE 5: AUTOMATION SCHEDULING -->
+<!-- ============================================================ -->
+
+<div class="section-break">
+  <div class="section-break-num">Template 05</div>
+  <div class="section-break-title">Automation <span class="section-break-accent">Scheduling</span></div>
+  <div class="section-break-sub">Tasks that run themselves, on time, every time</div>
+</div>
+
+<div class="content-block">
+  <div class="block-label">What it does</div>
+  <div class="block-title">Routine operations that happen without you</div>
+  <div class="block-body">
+    <p>Automation Scheduling enables tasks to run automatically at predefined times. Agents perform daily activities - generating reports, updating data, executing workflows - without manual input. Routine operations happen consistently. It saves time and improves overall productivity.</p>
+    <p>This template covers the prompt patterns, error handling, and scheduling infrastructure needed to run agents reliably in production.</p>
+  </div>
+
+  <div class="highlight-box">
+    Always include error handling and a fallback notification in scheduled prompts. An agent that fails silently is worse than no agent at all.
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Daily reporting agent</span>
+      <span class="code-label">Run at 08:00 UTC daily</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">Schedule: daily at 08:00 UTC</span>
+Task: generate and distribute daily ops summary
+
+<span class="hl-blue">STEP 1 - DATA COLLECTION (max 5 minutes)</span>
+Pull from last 24 hours:
+- /logs/errors.log (count and categorize errors)
+- /db/metrics.json (key performance numbers)
+- /github/commits (what shipped yesterday)
+
+<span class="hl-blue">STEP 2 - GENERATE REPORT</span>
+Format: markdown with these sections:
+  # Daily Summary - {date}
+  ## What shipped
+  ## Key metrics (vs yesterday)
+  ## Errors (count, top 3 by frequency)
+  ## Action items (only if errors > threshold)
+
+<span class="hl-blue">STEP 3 - DISTRIBUTE</span>
+Post to <span class="hl-orange">#ops-digest</span> in Slack.
+Save to /reports/daily/{date}.md
+
+<span class="hl-orange">ERROR HANDLING:</span>
+If any data source is unavailable:
+- Log: DATA_SOURCE_UNAVAILABLE: {source} at {time}
+- Continue with available data
+- Add warning to report header
+- If ALL sources fail: notify <span class="hl-orange">@on-call</span> immediately</pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">crontab / scheduling setup</span>
+      <span class="code-label">Infrastructure layer</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-grey"># Run daily report at 08:00 UTC</span>
+<span class="hl-orange">0 8 * * *</span> /usr/local/bin/claude-run daily-report.md >> /logs/agent.log 2>&1
+
+<span class="hl-grey"># Run metrics collection every 4 hours</span>
+<span class="hl-orange">0 */4 * * *</span> /usr/local/bin/claude-run metrics-agent.md >> /logs/agent.log 2>&1
+
+<span class="hl-grey"># Weekly cleanup on Sundays at 02:00</span>
+<span class="hl-orange">0 2 * * 0</span> /usr/local/bin/claude-run weekly-cleanup.md >> /logs/agent.log 2>&1
+
+<span class="hl-grey"># Wrapper script: claude-run</span>
+<span class="hl-blue">#!/bin/bash</span>
+PROMPT_FILE=$1
+LOG_DATE=$(date +%Y-%m-%d_%H:%M)
+echo "[$LOG_DATE] Starting: $PROMPT_FILE"
+claude --print --no-stream < "$PROMPT_FILE"
+EXIT_CODE=$?
+echo "[$LOG_DATE] Exit: $EXIT_CODE"
+<span class="hl-orange">if [ $EXIT_CODE -ne 0 ]; then</span>
+  <span class="hl-grey"># Send alert to Slack on failure</span>
+  curl -X POST $SLACK_WEBHOOK -d "{\"text\":\"Agent failed: $PROMPT_FILE\"}"
+<span class="hl-orange">fi</span></pre>
+    </div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <span class="code-lang">Prompt - Data update agent</span>
+      <span class="code-label">Safe write pattern</span>
+    </div>
+    <div class="code-body"><pre><span class="hl-orange">You are a scheduled data update agent.</span>
+Run frequency: every 4 hours
+
+<span class="hl-blue">SAFE WRITE PROTOCOL:</span>
+1. Read current data from source
+2. Write to /tmp/update_{timestamp}.json (NEVER directly to production)
+3. Validate: check required fields exist, types match schema
+4. If validation passes: move to production path via atomic rename
+5. If validation fails: log error, keep old data, alert on-call
+
+<span class="hl-blue">DATA SOURCES:</span>
+- Primary: {your API endpoint}
+- Fallback: /cache/last_good.json
+
+<span class="hl-blue">SCHEMA VALIDATION (required fields):</span>
+{
+  "updated_at": "ISO timestamp",
+  "records": "array, min 1 item",
+  "status": "active | inactive"
+}
+
+<span class="hl-orange">NEVER overwrite production data</span> if validation fails.
+Log every run to /logs/data-agent.log with: timestamp, records_updated, status</pre>
+    </div>
+  </div>
+
+  <div class="tips-box">
+    <div class="tips-title">Scheduling best practices</div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Always write to a temp file first, validate, then move to production. One bad write can corrupt everything.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Log every run with exit codes. Silent failures are the most dangerous kind.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Set a maximum runtime. If an agent runs longer than expected, kill it and alert. Stuck agents burn credits.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Test every scheduled prompt manually at least 3 times before putting it on a cron. Catch edge cases early.</div>
+    </div>
+    <div class="tip-row">
+      <div class="tip-bullet"></div>
+      <div class="tip-text">Keep prompt files under version control. You want to know what changed when something breaks at 3am.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA + FOOTER -->
+<div style="background:#191919; padding: 56px 40px 0;">
+
+  <!-- CTA CARD - orange, matching reference -->
+  <div style="max-width:760px; margin:0 auto 0; background:#CC785C; border-radius:16px; padding:44px 48px 40px; position:relative; overflow:hidden;">
+
+    <!-- background circles -->
+    <div style="position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(0,0,0,0.07);pointer-events:none;"></div>
+
+    <div style="position:relative;z-index:1;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.18em;color:rgba(255,255,255,0.65);text-transform:uppercase;margin-bottom:16px;font-family:'DM Sans',Arial,sans-serif;">
+        Take the next step
+      </div>
+
+      <div style="font-size:34px;font-weight:900;color:#FAFAF7;line-height:1.1;letter-spacing:-1px;margin-bottom:16px;font-family:'DM Sans',Arial,sans-serif;">
+        See Ultron run these workflows<br>in a live 20-second demo.
+      </div>
+
+      <div style="font-size:16px;font-weight:400;color:rgba(250,250,247,0.82);line-height:1.65;max-width:520px;margin-bottom:32px;font-family:'DM Sans',Arial,sans-serif;">
+        Watch Agent Teams coordinate a real codebase. Watch MCP connect your tools. Watch Automation Scheduling run without you touching a thing. No slides. No pitch. Just the system running.
+      </div>
+
+      <!-- URL pill - dark on orange, matching reference -->
+      <a href="https://app.51ultron.com/signup" style="display:inline-block;background:#191919;border-radius:10px;padding:14px 22px;text-decoration:none;">
+        <div style="font-family:'DM Mono','Courier New',monospace;font-size:15px;font-weight:600;color:#FAFAF7;letter-spacing:0.02em;">app.51ultron.com/signup</div>
+        <div style="font-size:11px;color:#666663;margin-top:3px;font-family:'DM Sans',Arial,sans-serif;letter-spacing:0.02em;">See how Ultron executes in real time</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER - Tiberiu Serbaneci identity -->
+  <div style="max-width:760px;margin:0 auto;padding:32px 0 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #2a2a2a;margin-top:40px;">
+    <div>
+      <div style="font-size:15px;font-weight:800;color:#FAFAF7;font-family:'DM Sans',Arial,sans-serif;letter-spacing:-0.01em;">Tiberiu Serbaneci</div>
+      <div style="font-size:12px;color:#666663;margin-top:3px;font-family:'DM Sans',Arial,sans-serif;">
+        Co-founder &amp; CEO &nbsp;&middot;&nbsp;
+        <a href="https://www.linkedin.com/in/tiberiu-serbaneci/" style="color:#CC785C;text-decoration:none;">Follow for more on LinkedIn</a>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <a href="https://scale.51ultron.com" style="font-size:12px;color:#666663;font-family:'DM Sans',Arial,sans-serif;text-decoration:none;">scale.51ultron.com</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
